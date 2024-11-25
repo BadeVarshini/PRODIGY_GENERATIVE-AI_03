@@ -1,0 +1,35 @@
+import tkinter as tk
+
+class StopwatchApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Stopwatch")
+
+        # Initialize variables
+        self.running = False
+        self.time = 0  # Time in milliseconds
+        self.start_time = 0
+        self.elapsed_time = 0
+
+        # Display
+        self.time_label = tk.Label(root, text="00:00:00.000", font=("Helvetica", 48), width=12, height=2)
+        self.time_label.pack()
+
+        # Start, Pause, and Reset buttons
+        self.start_button = tk.Button(root, text="Start", width=10, command=self.start)
+        self.start_button.pack(side="left", padx=5)
+
+        self.pause_button = tk.Button(root, text="Pause", width=10, state="disabled", command=self.pause)
+        self.pause_button.pack(side="left", padx=5)
+
+        self.reset_button = tk.Button(root, text="Reset", width=10, command=self.reset)
+        self.reset_button.pack(side="left", padx=5)
+
+        # Update the time every 10 milliseconds
+        self.update_clock()
+
+    def start(self):
+        """Start the stopwatch."""
+        if not self.running:
+            self.start_time = self.time
+            self.running = True
